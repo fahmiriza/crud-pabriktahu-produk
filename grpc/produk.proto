@@ -1,0 +1,44 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";
+
+package grpc;
+
+message AddProdukReq{
+    string KodeProduk=1;
+    string NamaProduk=2;
+    string Keterangan=3;
+    int32 Status = 4;
+    string CreateBy = 5;
+}
+
+message ReadProdukByNamaReq{
+    string NamaProduk = 1;
+}
+
+message ReadProdukByNamaResp{
+    string KodeProduk=1;
+    string NamaProduk=2;
+    string Keterangan=3;
+    int32 Status = 4;
+    string CreateBy = 5;
+}
+
+message ReadProdukResp{
+    repeated ReadProdukByNamaResp allProduk = 1;
+}
+
+message UpdateProdukReq{
+    string KodeProduk=1;
+    string NamaProduk=2;
+    string Keterangan=3;
+    int32 Status = 4;
+    string UpdateBy = 5;
+}
+
+service ProdukService{
+    rpc AddProduk(AddProdukReq) returns (google.protobuf.Empty) {};
+    rpc ReadProdukByNama(ReadProdukByNamaReq) returns (ReadProdukByNamaResp) {};
+    rpc ReadProduk(google.protobuf.Empty) returns (ReadProdukResp){};
+    rpc UpdateProduk(UpdateProdukReq) returns (google.protobuf.Empty){};
+}
